@@ -158,6 +158,9 @@ hr{border:0;border-top:1px solid var(--line);margin:0 0 14px}
 
 @media (prefers-reduced-motion:reduce){.drawer{transition:none}}
 
+.login label.gap{margin-top:18px}
+.erro{color:#b3261e;font-size:.85rem;margin-top:8px}
+
 </style>
 </head>
 <body>
@@ -182,7 +185,35 @@ hr{border:0;border-top:1px solid var(--line);margin:0 0 14px}
         <input id="senha" type="password" placeholder="••••••••" required></div>
       <button class="btn-primary" type="submit">Conecte-se</button>
     </form>
-    <p class="muted center">Não tem uma conta? <a href="#" class="link">Crie uma.</a></p>
+    <p class="muted center">Não tem uma conta? <a href="#/cadastro" class="link">Crie uma.</a></p>
+  </div>
+</main>
+
+<!-- ============ CADASTRO ============ -->
+<main id="cadastro" class="screen login" hidden>
+  <div class="login-logo"><svg class="ico" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></div>
+  <h1>Crie sua conta</h1>
+  <p class="muted">Cadastre-se para começar</p>
+  <div class="login-card">
+    <button class="btn-outline" type="button">
+      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.4-4.8 7.1l7.6 5.9c4.4-4.1 7-10.1 7-17.5z"/><path fill="#FBBC05" d="M10.5 28.7a14.5 14.5 0 0 1 0-9.4l-7.9-6.1a24 24 0 0 0 0 21.6l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.6-5.9c-2.1 1.4-4.9 2.3-8.3 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>
+      Continuar com o Google
+    </button>
+    <div class="divider"><span>OU</span></div>
+    <form id="cadastro-form">
+      <label for="c-email">E-mail</label>
+      <div class="input"><svg class="ico" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        <input id="c-email" type="email" placeholder="você@exemplo.com" required></div>
+      <label for="c-senha" class="gap">Senha</label>
+      <div class="input"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <input id="c-senha" type="password" placeholder="••••••••" minlength="6" required></div>
+      <label for="c-conf" class="gap">Confirme sua senha</label>
+      <div class="input"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <input id="c-conf" type="password" placeholder="••••••••" minlength="6" required></div>
+      <p class="erro" id="c-erro" hidden>As senhas não coincidem.</p>
+      <button class="btn-primary" type="submit">Criar uma conta</button>
+    </form>
+    <p class="muted center">Já tem uma conta? <a href="#/login" class="link">Iniciar sessão</a></p>
   </div>
 </main>
 
@@ -400,10 +431,11 @@ overlay.onclick = () => menu(false);
 const titles = {home:'Lar', cronogramas:'Cronogramas', avisos:'Avisos'};
 function route() {
   const h = location.hash.replace(/^#\/?/, '') || 'home';
-  const isLogin = h === 'login';
-  $('#login').hidden = !isLogin;
-  $('#app').hidden = isLogin;
-  if (isLogin) return;
+  const isAuth = h === 'login' || h === 'cadastro';
+  $('#login').hidden = h !== 'login';
+  $('#cadastro').hidden = h !== 'cadastro';
+  $('#app').hidden = isAuth;
+  if (isAuth) { window.scrollTo(0, 0); return; }
   ['home','cronogramas','avisos','setor'].forEach(p => $('#'+p).hidden = true);
   let page = h.startsWith('setor/') ? 'setor' : (titles[h] ? h : 'home');
   $('#'+page).hidden = false;
@@ -416,6 +448,12 @@ function route() {
   menu(false); window.scrollTo(0, 0);
 }
 $('#login-form').onsubmit = e => { e.preventDefault(); location.hash = '#/'; };
+$('#cadastro-form').onsubmit = e => {
+  e.preventDefault();
+  const ok = $('#c-senha').value === $('#c-conf').value;
+  $('#c-erro').hidden = ok;
+  if (ok) location.hash = '#/';
+};
 addEventListener('hashchange', route);
 if (!location.hash) location.hash = '#/login';
 route();
