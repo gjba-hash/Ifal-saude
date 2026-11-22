@@ -176,13 +176,13 @@ hr{border:0;border-top:1px solid var(--line);margin:0 0 14px}
       Continuar com o Google
     </button>
     <div class="divider"><span>OU</span></div>
-    <form id="login-form">
+    <form id="login-form" novalidate>
       <label for="email">E-mail</label>
       <div class="input"><svg class="ico" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-        <input id="email" type="email" placeholder="você@exemplo.com" required></div>
+        <input id="email" type="email" placeholder="você@exemplo.com"></div>
       <div class="row-between"><label for="senha">Senha</label><a href="#" class="link small">Esqueceu sua senha?</a></div>
       <div class="input"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <input id="senha" type="password" placeholder="••••••••" required></div>
+        <input id="senha" type="password" placeholder="••••••••"></div>
       <button class="btn-primary" type="submit">Conecte-se</button>
     </form>
     <p class="muted center">Não tem uma conta? <a href="#/cadastro" class="link">Crie uma.</a></p>
@@ -200,16 +200,16 @@ hr{border:0;border-top:1px solid var(--line);margin:0 0 14px}
       Continuar com o Google
     </button>
     <div class="divider"><span>OU</span></div>
-    <form id="cadastro-form">
+    <form id="cadastro-form" novalidate>
       <label for="c-email">E-mail</label>
       <div class="input"><svg class="ico" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-        <input id="c-email" type="email" placeholder="você@exemplo.com" required></div>
+        <input id="c-email" type="email" placeholder="você@exemplo.com"></div>
       <label for="c-senha" class="gap">Senha</label>
       <div class="input"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <input id="c-senha" type="password" placeholder="••••••••" minlength="6" required></div>
+        <input id="c-senha" type="password" placeholder="••••••••"></div>
       <label for="c-conf" class="gap">Confirme sua senha</label>
       <div class="input"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <input id="c-conf" type="password" placeholder="••••••••" minlength="6" required></div>
+        <input id="c-conf" type="password" placeholder="••••••••"></div>
       <p class="erro" id="c-erro" hidden>As senhas não coincidem.</p>
       <button class="btn-primary" type="submit">Criar uma conta</button>
     </form>
@@ -241,8 +241,8 @@ hr{border:0;border-top:1px solid var(--line);margin:0 0 14px}
       <div id="drawer-setores"></div>
     </nav>
     <div class="drawer-user">
-      <span class="avatar">GJ</span>
-      <div><strong>gjba1</strong><small>gjba1@aluno.ifal.edu.br</small></div>
+      <span class="avatar" id="u-avatar">U</span>
+      <div><strong class="u-nome">Usuário</strong><small id="u-email">Sem conta</small></div>
       <a href="#/login" class="logout" aria-label="Sair"><svg class="ico" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></a>
     </div>
   </aside>
@@ -250,7 +250,7 @@ hr{border:0;border-top:1px solid var(--line);margin:0 0 14px}
   <!-- Lar -->
   <main id="home" class="screen page" hidden>
     <p class="eyebrow">IFAL · ASSISTÊNCIA ESTUDANTIL</p>
-    <h1>Olá, gjba1</h1>
+    <h1>Olá, <span class="u-nome">Usuário</span></h1>
     <p class="muted lead">Acompanhe os cronogramas e horários de atendimento dos setores de saúde do campus.</p>
 
     <a class="card fav" href="#/setor/medico">
@@ -420,6 +420,26 @@ document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
 });
 $('#s-fav').onclick = e => e.currentTarget.classList.toggle('on');
 
+/* ---------- usuário (sem conta = "Usuário") ---------- */
+const GUEST = {nome:'Usuário', email:'', avatar:'U'};
+let user = GUEST;
+try { user = JSON.parse(sessionStorage.getItem('ifal-user')) || GUEST; } catch (e) {}
+function setUser(email) {
+  email = (email || '').trim();
+  user = email.includes('@') && email.split('@')[0]
+    ? {nome: email.split('@')[0], email, avatar: email.slice(0, 2).toUpperCase()}
+    : GUEST;
+  try { sessionStorage.setItem('ifal-user', JSON.stringify(user)); } catch (e) {}
+  renderUser();
+}
+function renderUser() {
+  document.querySelectorAll('.u-nome').forEach(el => el.textContent = user.nome);
+  $('#u-email').textContent = user.email || 'Sem conta';
+  $('#u-avatar').textContent = user.avatar;
+}
+renderUser();
+document.querySelector('.logout').addEventListener('click', () => setUser(''));
+
 /* ---------- menu lateral ---------- */
 const drawer = $('#drawer'), overlay = $('#overlay');
 const menu = open => { drawer.classList.toggle('open', open); overlay.hidden = !open; drawer.setAttribute('aria-hidden', !open); };
@@ -447,12 +467,13 @@ function route() {
   document.querySelectorAll('.drawer nav a').forEach(a => a.classList.toggle('active', a.dataset.route === h));
   menu(false); window.scrollTo(0, 0);
 }
-$('#login-form').onsubmit = e => { e.preventDefault(); location.hash = '#/'; };
+$('#login-form').onsubmit = e => { e.preventDefault(); setUser($('#email').value); location.hash = '#/'; };
 $('#cadastro-form').onsubmit = e => {
   e.preventDefault();
-  const ok = $('#c-senha').value === $('#c-conf').value;
+  const a = $('#c-senha').value, b = $('#c-conf').value;
+  const ok = a === b;
   $('#c-erro').hidden = ok;
-  if (ok) location.hash = '#/';
+  if (ok) { setUser($('#c-email').value); location.hash = '#/'; }
 };
 addEventListener('hashchange', route);
 if (!location.hash) location.hash = '#/login';
