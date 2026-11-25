@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atendimento · IFAL Assistência Estudantil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<input class="menu-toggle" type="checkbox" id="menu" aria-label="Menu">
+<header class="topbar">
+  <label class="icon-btn" for="menu" aria-label="Abrir menu"><svg class="ico" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></label>
+  <h2>Atendimento</h2>
+  <span class="badge-ifal">IFAL</span>
+</header>
+<label class="overlay" for="menu"></label>
+<aside class="drawer">
+  <div class="drawer-head"><span class="badge-ifal big">IFAL</span><div><strong>Atendimento</strong><small>CRONOGRAMAS</small></div>
+    <label class="close" for="menu" aria-label="Fechar"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg></label></div>
+  <nav><a href="home.html"><svg class="ico" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Lar</a><a href="cronogramas.html"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Cronogramas</a><a href="avisos.html"><svg class="ico" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>Avisos</a><p class="drawer-label">SETORES</p><a href="setor-medico.html"><svg class="ico" viewBox="0 0 24 24"><path d="M11 2v2M5 2v2M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg>Setor Médico</a><a href="setor-nutricao.html"><svg class="ico" viewBox="0 0 24 24"><path d="M12 20.9c-2.5 1.5-4.6 1.1-6.3-.5C3 17.8 3 11 6 8.5c2-1.6 4-1.3 6 0 2-1.3 4-1.6 6 0 3 2.5 3 9.3.3 11.9-1.7 1.6-3.8 2-6.3.5zM12 8.5c0-3 1-5 3-6"/></svg>Nutrição</a><a href="setor-psicologia.html"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.99.1A4 4 0 0 0 5 13a4 4 0 0 0 2 6.5 3 3 0 0 0 5-1.5V5zm0 0a3 3 0 1 1 6 .1A4 4 0 0 1 19 13a4 4 0 0 1-2 6.5 3 3 0 0 1-5-1.5"/></svg>Psicologia</a><a href="setor-atendimento.html" class="active"><svg class="ico" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Atendimento</a><a href="setor-odontologia.html"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>Odontologia</a></nav>
+  <div class="drawer-user"><span class="avatar">U</span><div><strong>Usuário</strong><small>Sem conta</small></div>
+    <a href="login.html" class="logout" aria-label="Sair"><svg class="ico" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></a></div>
+</aside>
+<main class="page">
+  <section class="card setor-head">
+    <div class="setor-top"><span class="tile"><svg class="ico" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></span>
+      <div><h1>Atendimento</h1><p class="muted">Confira o cronograma e os horários de atendimento.</p></div>
+      <span class="star-btn"><svg class="star" viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21.1 7 14.2 2 9.3l6.9-1z"/></svg></span></div>
+    <hr>
+    <p><strong>Local:</strong> <span class="muted">Recepção da Assistência Estudantil</span></p>
+    <p><strong>Responsável:</strong> <span class="muted">Equipe de Atendimento</span></p>
+  </section>
+
+  <input class="tabr" type="radio" name="tab" id="t-cron" checked>
+  <input class="tabr" type="radio" name="tab" id="t-hor">
+  <div class="tabs"><label class="tab" for="t-cron">Cronômetro</label><label class="tab" for="t-hor">Horários</label></div>
+
+  <div class="p-cron">
+    <p class="eyebrow">CRONOGRAMA ATUAL</p>
+    <section class="card cron-atual">
+      <div class="fav-body"><span class="tile sm"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><div><h3>3 de nov a 18 de dez de 2026</h3><p class="muted">Recepção e ética</p></div></div>
+      <span class="pill">✓ Cronograma em vigor</span>
+    </section>
+    <p class="eyebrow">DO SETOR</p>
+    <section class="card calendar">
+      <div class="cal-head"><h3>Novembro de 2026</h3><div><span class="icon-btn dark">‹</span><span class="icon-btn dark">›</span></div></div>
+      <div class="cal-grid cal-week"><span>DOM</span><span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SÁB</span></div>
+      <div class="cal-grid"><span class="d">1</span><span class="d on">2</span><span class="d on sel">3</span><span class="d on">4</span><span class="d on">5</span><span class="d on">6</span><span class="d">7</span><span class="d">8</span><span class="d on">9</span><span class="d on">10</span><span class="d on">11</span><span class="d on">12</span><span class="d on">13</span><span class="d">14</span><span class="d">15</span><span class="d on">16</span><span class="d on">17</span><span class="d on">18</span><span class="d on">19</span><span class="d on">20</span><span class="d">21</span><span class="d">22</span><span class="d on">23</span><span class="d on">24</span><span class="d on">25</span><span class="d on">26</span><span class="d on">27</span><span class="d">28</span><span class="d">29</span><span class="d on">30</span></div>
+      <p class="legend"><i></i>Dias com atendimento</p>
+      <div class="day-box"><p class="eyebrow dim">TERÇA-FEIRA, 3 DE NOVEMBRO</p><div class="day-row"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><b>07:30 às 17:00</b><small>Intervalo das 12h às 13h30</small></div></div>
+    </section>
+  </div>
+  <div class="p-hor"><section class="card"><h3>Horários</h3><p class="muted">07:30 às 17:00 · Intervalo das 12h às 13h30</p></section></div>
+
+  <p class="eyebrow">INFORMAÇÕES IMPORTANTES</p>
+  <ul class="card bullets"><li>A recepção orienta sobre todos os setores de saúde do campus.</li><li>Intervalo de atendimento das 12h às 13h30.</li><li>Horários sujeitos a alterações.</li></ul>
+  <div class="card info"><svg class="ico-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><p class="muted">Horários sujeitos a alterações. Confirme sempre com o setor de atendimento.</p></div>
+  <a class="btn-back" href="cronogramas.html">← VOLTAR</a>
+</main>
+<a class="fab" href="avisos.html" aria-label="Avisos"><svg class="ico" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg></a>
+</body>
+</html>
